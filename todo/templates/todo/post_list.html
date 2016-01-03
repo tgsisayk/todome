@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>To - do List</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    </head>
+    <body background="//*http://media.grahambrown.com/assets/grahambrown/prod/19951-pattern.jpg">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'todo:post_list'%}" style="color:Black">
+    TODOAPP
+      </a>
+    </div>
+  </div>
+</nav>
+    <div class="container">
+    <a href="{% url 'todo:post_new' %}" class="btn btn-success" role="button"><i class="fa fa-plus"></i>  ADD PLANS</a>
+    </div>
+
+    <div class="container">
+        <table class="table table-bordered" style="border:2px solid #000">
+                <tr>
+        <td><h5>Plan</h5></td>
+        <td><h5>Date</h5></td>
+        <td><h5>Description</h5></td>
+        <td><h5>Check</h5></td>
+        </tr>
+        <tr>
+        {% csrf_token %}
+        {% for post in posts %}
+        <td style="color:green">{{ post.todo }}</td>
+        <td style="color:orange"> {{ post.published_date.date }} </td>
+        <td style="color:Blue">{{ post.description|linebreaks }}</td>
+        <td><a href="{% url 'todo:post_delete' post.id %}" class="btn btn-warning">Complete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </body>
+</html>
+
